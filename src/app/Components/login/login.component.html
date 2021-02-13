@@ -1,0 +1,9 @@
+<div class="container">
+    <h1 class="display-1">LOGIN</h1>
+    <form [formGroup]="formG" (ngSubmit)="save($event)">
+        <input class='form-control mt-3' type="text" formControlName="user" placeholder="Ingrese Nombre de Usuario">
+        <input class='form-control mt-3' type="password" formControlName="pwd" placeholder="Ingrese contraseña">
+        <input class='form-control mt-3' type="email" formControlName="email" placeholder="ingrese su email">
+        <button class='btn btn-outline-success form-control btn-lg mt-3' type="submit">Ingresar</button>
+    </form>
+</div>
