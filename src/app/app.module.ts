@@ -4,21 +4,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UsersComponent } from './Components/users/users.component';
-import { ProductsComponent } from './Components/products/products.component';
-import { CommentsComponent } from './Components/comments/comments.component';
 import { MenuComponent } from './Components/menu/menu.component';
+import { UserComponent } from './Components/user/user.component';
+import { ProductComponent } from './Components/product/product.component';
+import { CommentComponent } from './Components/comment/comment.component';
 import { PageNoFoundComponent } from './Components/page-no-found/page-no-found.component';
 import { LoginComponent } from './Components/login/login.component';
 import { SingUpComponent } from './Components/sing-up/sing-up.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent,
-    ProductsComponent,
-    CommentsComponent,
     MenuComponent,
+    UserComponent,
+    ProductComponent,
+    CommentComponent,
     PageNoFoundComponent,
     LoginComponent,
     SingUpComponent,

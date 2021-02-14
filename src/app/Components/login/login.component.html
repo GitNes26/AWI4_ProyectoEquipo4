@@ -1,9 +1,25 @@
-<div class="container">
-    <h1 class="display-1">LOGIN</h1>
-    <form [formGroup]="formG" (ngSubmit)="save($event)">
-        <input class='form-control mt-3' type="text" formControlName="user" placeholder="Ingrese Nombre de Usuario">
-        <input class='form-control mt-3' type="password" formControlName="pwd" placeholder="Ingrese contraseña">
-        <input class='form-control mt-3' type="email" formControlName="email" placeholder="ingrese su email">
-        <button class='btn btn-outline-success form-control btn-lg mt-3' type="submit">Ingresar</button>
-    </form>
+<div class="row">
+    <div class="col-md-8 col-lg-5 col-11 container card p-5">
+        <h1 class="display-1 text-center">LOGIN</h1>
+        <form class="px-5" [formGroup]="formG" (ngSubmit)="save($event)" novalidate>
+            <input class='form-control mt-3' type="text" formControlName="user" placeholder="Ingrese Nombre de Usuario">
+            <!-- <small class="badge alert-danger">{{this.formG.get('user').value.length}}/3</small> -->
+            <div *ngIf="formG.get('user').errors && formG.get('user').touched">
+                <small class="badge alert-danger" *ngIf="formG.get('user').hasError('required')">
+                    Este es un campo requerido.
+                </small>
+            </div>
+            <input class='form-control mt-3' type="password" formControlName="pwd" placeholder="Ingrese Contraseña">
+            <div *ngIf="formG.get('pwd').errors && formG.get('pwd').touched">
+                <small class="badge alert-danger" *ngIf="formG.get('pwd').hasError('required')">
+                    Este es un campo requerido.
+                </small>
+                <small class="badge alert-danger" *ngIf="formG.get('pwd').hasError('minlength')">
+                    Asegurate de tener minimo 3 caracteres.
+                </small>
+            </div>
+            <button class='btn btn-outline-primary form-control btn-lg mt-3' type="submit">Ingresar</button>
+        </form>
+        <a routerLink='/singUp' routerLinkActive='active' class="link-secondary lead text-center mt-1">Registrarme</a>
+    </div>
 </div>

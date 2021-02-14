@@ -1,0 +1,73 @@
+<div class="container">
+    <h1 class="display-1 text-center">COMENTARIOS</h1>
+    <hr>
+    <button class="btn btn-outline-secondary" (click)="formAddComment = !formAddComment">{{formAddComment ? 'Ocultar' : 'Agregar Comentario'}}</button>
+    <!-- FORMULARIO PARA AGREGAR UN COMENTARIO -->
+    <div class="card" *ngIf="formAddComment">
+        <h5 class="card-header">Registrar Comentario</h5>
+        <form class="card-body" [formGroup]="formG" (ngSubmit)="create()" novalidate>
+            <textarea class="form-control" rows="2" formControlName="comment" [(ngModel)]="selected.comment"></textarea>
+            <!-- <small class="text-muted text-end">{{this.formG.get('comment').value.length}}/100</small> -->
+            <div *ngIf="formG.get('comment').errors && formG.get('comment').touched">
+                <small class="badge alert-danger" *ngIf="formG.get('comment').hasError('required')">
+                    Este es un campo requerido.
+                </small>
+                <small class="badge alert-danger" *ngIf="formG.get('comment').hasError('maxlength')">
+                    Maximo 100 caracteres.
+                </small>
+            </div>
+            <input class='form-control mt-3' type="number" formControlName="user" [(ngModel)]="selected.user" placeholder="Ingrese el ID de usuario">
+            <div *ngIf="formG.get('user').errors && formG.get('user').touched">
+                <small class="badge alert-danger" *ngIf="formG.get('user').hasError('required')">
+                    Este es un campo requerido.
+                </small>
+            </div>
+            <input class='form-control mt-3' type="number" formControlName="product" [(ngModel)]="selected.product" placeholder="Ingrese el ID del producto">
+            <div *ngIf="formG.get('product').errors && formG.get('product').touched">
+                <small class="badge alert-danger" *ngIf="formG.get('product').hasError('required')">
+                    Este es un campo requerido.
+                </small>
+            </div>
+            <!-- <input class='form-control mt-3' type="datetime-local" formControlName="date" [(ngModel)]="selected.date">
+            <div *ngIf="formG.get('date').errors && formG.get('date').touched">
+                <small class="badge alert-danger" *ngIf="formG.get('date').hasError('required')">
+                    Este es un campo requerido.
+                </small>
+            </div> -->
+            <button class="btn btn-success mt-3">
+                {{selected.id == 0 ? 'Agregar' : 'Guardar'}} <i class="fas fa-plus-circle"></i>
+            </button>
+        </form>
+    </div>
+
+    <hr>
+    <!-- TABLA DE COMENTARIOS -->
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr class="text-center">
+                    <th scope="col">ID</th>
+                    <th scope="col">Comentario</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col" colspan="2" class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let comment of commentsArray"
+                class="list-group-item-action"
+                [class.bg-secondary]="comment == selected"
+                [class.text-light]="comment == selected">
+                    <th scope="row">{{comment.id}}</th>
+                    <td>{{comment.comment}}</td>
+                    <td>{{comment.user}}</td>
+                    <td>{{comment.product}}</td>
+                    <td>{{comment.date}}</td>
+                    <td><button (click)="update(comment)" class="btn btn-primary">Editar <i class="fas fa-pen"></i></button></td>
+                    <td><button (click)="delete(comment)" class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

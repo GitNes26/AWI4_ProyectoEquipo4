@@ -1,0 +1,53 @@
+<div class="container">
+    <h1 class="display-1 text-center">PRODUCTOS</h1>
+    <hr>
+    <button class="btn btn-outline-secondary" (click)="formAddProduct = !formAddProduct">{{formAddProduct ? 'Ocultar' : 'Agregar producto'}}</button>
+    <!-- FORMULARIO PARA AGREGAR UN PRODUCTO -->
+    <div class="card" *ngIf="formAddProduct">
+        <h5 class="card-header">Registrar Producto</h5>
+        <form class="card-body" [formGroup]="formG" (ngSubmit)="create()" novalidate>
+            <input class='form-control mt-3' type="text" formControlName="product" [(ngModel)]="selected.product" placeholder="Ingrese el Nombre del Producto">
+            <div *ngIf="formG.get('product').errors && formG.get('product').touched">
+                <small class="badge alert-danger" *ngIf="formG.get('product').hasError('required')">
+                    Este es un campo requerido.
+                </small>
+            </div>
+            <input class='form-control mt-3' type="number" formControlName="price" [(ngModel)]="selected.price" placeholder="Ingrese el Precio del Producto">
+            <div *ngIf="formG.get('price').errors && formG.get('price').touched">
+                <small class="badge alert-danger" *ngIf="formG.get('price').hasError('required')">
+                    Este es un campo requerido.
+                </small>
+            </div>
+            <button class="btn btn-success mt-3">
+                {{selected.id === 0 ? 'Agregar' : 'Guardar'}} <i class="fas fa-plus-circle"></i>
+            </button>
+        </form>
+    </div>
+
+    <hr>
+    <!-- TABLA DE PRODUCTOS -->
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col" colspan="2" class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of productsArray"
+                class="list-group-item-action"
+                [class.bg-secondary]="product == selected"
+                [class.text-light]="product == selected">
+                    <th scope="row">{{product.id}}</th>
+                    <td>{{product.product}}</td>
+                    <td>${{product.price}}</td>
+                    <td><button (click)="update(product)" class="btn btn-primary">Editar <i class="fas fa-pen"></i></button></td>
+                    <td><button (click)="delete(product)" class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

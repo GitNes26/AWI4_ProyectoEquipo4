@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validator, Form, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators'
-import { group } from '@angular/animations';
+import { User } from '../../Models/user';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   private buildForm() {
     this.formG = new FormGroup({
       user: new FormControl('', [Validators.required]),
-      pwd: new FormControl('', [Validators.required,Validators.min(3)]),
+      pwd: new FormControl('', [Validators.required,Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.email]),
     });
 
@@ -35,8 +35,12 @@ export class LoginComponent implements OnInit {
 
   save(event: Event) {
     event.preventDefault();
-    const value = this.formG.value;
-    console.log(value);
+    if (this.formG.valid){ // verifica las validaciones de los campos
+      const value = this.formG.value;
+      console.log(value);
+    } else { // si no ha sido tocado ningun campo, marcar como tocado para arrojar errores
+      this.formG.markAllAsTouched()
+    }
   }
 
 }
