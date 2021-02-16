@@ -22,11 +22,11 @@
             </div>
         </div> -->
         <div class="form-floating mb-3">
-            <input class='form-control mt-3' type="text" formControlName="user" id="floatingUsuario" placeholder="Usuario"
-            [class.is-invalid]="ValidateTextField('user')">
-            <label for="floatingUsuario">Usuario</label>
-            <div *ngIf="ValidateErrorTextField('user')">
-                <small class="badge alert-danger" *ngIf="formG.get('user').hasError('required')">
+            <input class='form-control mt-3' type="text" formControlName="username" id="floatingUsername" placeholder="Usuario"
+            [class.is-invalid]="ValidateTextField('username')">
+            <label for="floatingUsername">Usuario</label>
+            <div *ngIf="ValidateErrorTextField('username')">
+                <small class="badge alert-danger" *ngIf="formG.get('username').hasError('required')">
                     Este es un campo requerido.
                 </small>
             </div>

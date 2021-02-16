@@ -3,12 +3,15 @@
         <h1 class="display-1 text-center">LOGIN</h1>
         <form class="px-5" [formGroup]="formG" (ngSubmit)="save($event)" novalidate>
             <div class="form-floating mb-3">
-                <input class='form-control mt-3' type="text" formControlName="user" id="floatingUser" placeholder="Nombre de Usuario"
-                [class.is-invalid]="ValidateTextField('user')">
-                <label for="floatingUser">Nombre de Usuario</label>
-                <div *ngIf="ValidateErrorTextField('user')">
-                    <small class="badge alert-danger" *ngIf="formG.get('user').hasError('required')">
+                <input class='form-control mt-3' type="text" formControlName="email" id="floatingEmail" placeholder="Correo"
+                [class.is-invalid]="ValidateTextField('email')">
+                <label for="floatingEmail">Correo</label>
+                <div *ngIf="ValidateErrorTextField('email')">
+                    <small class="badge alert-danger" *ngIf="formG.get('email').hasError('required')">
                         Este es un campo requerido.
+                    </small>
+                    <small class="badge alert-danger" *ngIf="formG.get('email').hasError('email')">
+                        Asegurate de escribir una direccion de correo valida.
                     </small>
                 </div>
             </div>
@@ -27,6 +30,6 @@
             </div>
             <button class='btn btn-outline-primary form-control btn-lg mt-3' type="submit">Ingresar</button>
         </form>
-        <a routerLink='/signUp' routerLinkActive='active' class="link-secondary lead text-center mt-1 badge">Registrarme</a>
+        <a routerLink='/register' routerLinkActive='active' class="link-secondary lead text-center mt-1 badge">Registrarme</a>
     </div>
 </div>

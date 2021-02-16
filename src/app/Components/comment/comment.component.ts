@@ -59,8 +59,6 @@ export class CommentComponent implements OnInit {
   selected: Comment = new Comment()
 
   create(){
-    console.log('qcrearsa?')
-
     if (this.formG.valid){ // verifica las validaciones de los campos
       console.log('que entro?')
 

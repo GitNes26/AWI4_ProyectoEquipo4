@@ -2,17 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { User } from '../../Models/user';
+import { AuthService } from '../../Services/auth.service';
+import { timeMessage, successDialog, errorMessage } from '../../Functions/Alerts';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
-  formG:FormGroup
+  formG:FormGroup;
+  user:User;
 
-  constructor(private formBuilder:FormBuilder) {
+  constructor(private formBuilder:FormBuilder, private authService:AuthService, private router:Router) {
     this.buildForm()
    }
 
@@ -23,7 +27,7 @@ export class SignUpComponent implements OnInit {
     this.formG = this.formBuilder.group({
       // name: ['', [Validators.required]],
       // lastName: ['', [Validators.required]],
-      user: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       pwd: ['', [Validators.required, Validators.minLength(3)]],
       pwd2: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]]
@@ -33,11 +37,28 @@ export class SignUpComponent implements OnInit {
   save(event: Event) {
     event.preventDefault()
     if (this.formG.valid){ // verifica las validaciones de los campos
-      const values = this.formG.value;
-      console.log(values);
+      // const data = this.formG.value; // console.log(data);
+      this.setData()
+      this.authService.register(this.user).subscribe((data:any) => {
+        timeMessage('Registrando...',1500).then(() => {
+          successDialog('Registro Completado')
+          this.router.navigate(['/login'])
+        })
+      }, error => {
+        errorMessage('Ha ocurrido un error'+ error)
+      })
       
     } else { // si no ha sido tocado ningun campo, marcar como tocado para arrojar errores
       this.formG.markAllAsTouched()
+    }
+  }
+
+  setData() {
+    this.user = {
+      // id: 1,
+      username: this.formG.get('username').value,
+      password: this.formG.get('pwd').value,
+      email: this.formG.get('email').value
     }
   }
 

@@ -5,11 +5,11 @@ import { ProductComponent } from './Components/product/product.component'
 import { CommentComponent } from './Components/comment/comment.component'
 import { PageNoFoundComponent } from './Components/page-no-found/page-no-found.component'
 import { LoginComponent } from './Components/login/login.component';
-import { SignUpComponent } from './Components/sign-up/sign-up.component';
+import { RegisterComponent } from './Components/register/register.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'signUp' , component: SignUpComponent },
+  { path: 'register' , component: RegisterComponent },
   { path: 'users' , component: UserComponent },
   { path: 'products' , component: ProductComponent },
   { path: 'comments' , component: CommentComponent },
