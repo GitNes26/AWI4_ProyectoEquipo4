@@ -18,6 +18,20 @@ export class ProductComponent implements OnInit {
     {id:2, product:"Bat de Beibol", price:300},
     {id:3, product:"Guante de Beisbol", price:240},
     {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
+    {id:4, product:"Balon de Futbol No.5", price:119.99},
   ]
 
   constructor() {
@@ -32,6 +46,14 @@ export class ProductComponent implements OnInit {
       product: new FormControl('',[Validators.required]),
       price: new FormControl('',[Validators.required])
     })
+  }
+
+  ValidateErrorTextField(tf:string){
+    return (this.formG.get(tf).errors && this.formG.get(tf).touched)
+  }
+
+  ValidateTextField(tf:string){
+    return (this.formG.get(tf).invalid && this.formG.get(tf).touched)
   }
 
   // save(event: Event) {

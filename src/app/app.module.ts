@@ -10,7 +10,7 @@ import { ProductComponent } from './Components/product/product.component';
 import { CommentComponent } from './Components/comment/comment.component';
 import { PageNoFoundComponent } from './Components/page-no-found/page-no-found.component';
 import { LoginComponent } from './Components/login/login.component';
-import { SingUpComponent } from './Components/sing-up/sing-up.component';
+import { SignUpComponent } from './Components/sign-up/sign-up.component';
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { SingUpComponent } from './Components/sing-up/sing-up.component';
     CommentComponent,
     PageNoFoundComponent,
     LoginComponent,
-    SingUpComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,

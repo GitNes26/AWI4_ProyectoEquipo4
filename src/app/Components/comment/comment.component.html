@@ -1,4 +1,4 @@
-<div class="container">
+<div class="row">
     <h1 class="display-1 text-center">COMENTARIOS</h1>
     <hr>
     <button class="btn btn-outline-secondary" (click)="formAddComment = !formAddComment">{{formAddComment ? 'Ocultar' : 'Agregar Comentario'}}</button>
@@ -6,41 +6,54 @@
     <div class="card" *ngIf="formAddComment">
         <h5 class="card-header">Registrar Comentario</h5>
         <form class="card-body" [formGroup]="formG" (ngSubmit)="create()" novalidate>
-            <textarea class="form-control" rows="2" formControlName="comment" [(ngModel)]="selected.comment"></textarea>
-            <!-- <small class="text-muted text-end">{{this.formG.get('comment').value.length}}/100</small> -->
-            <div *ngIf="formG.get('comment').errors && formG.get('comment').touched">
-                <small class="badge alert-danger" *ngIf="formG.get('comment').hasError('required')">
-                    Este es un campo requerido.
-                </small>
-                <small class="badge alert-danger" *ngIf="formG.get('comment').hasError('maxlength')">
-                    Maximo 100 caracteres.
-                </small>
+            <div class="form-floating mb-3">
+                <textarea class="form-control" rows="2" formControlName="comment" [(ngModel)]="selected.comment" id="floatingComment" placeholder="Comentario..."
+                [class.is-invalid]="ValidateTextField('comment')"></textarea>
+                <label for="floatingComment">Comentario...</label>
+                <!-- <small class="text-muted text-end">{{this.formG.get('comment').value.length}}/100</small> -->
+                <div *ngIf="ValidateErrorTextField('comment')">
+                    <small class="badge alert-danger" *ngIf="formG.get('comment').hasError('required')">
+                        Este es un campo requerido.
+                    </small>
+                    <small class="badge alert-danger" *ngIf="formG.get('comment').hasError('maxlength')">
+                        Maximo 100 caracteres.
+                    </small>
+                </div>
             </div>
-            <input class='form-control mt-3' type="number" formControlName="user" [(ngModel)]="selected.user" placeholder="Ingrese el ID de usuario">
-            <div *ngIf="formG.get('user').errors && formG.get('user').touched">
-                <small class="badge alert-danger" *ngIf="formG.get('user').hasError('required')">
-                    Este es un campo requerido.
-                </small>
+            <div class="form-floating mb-3">
+                <input class='form-control mt-3' type="number" formControlName="user" [(ngModel)]="selected.user" id="floatingUser" placeholder="ID del usuario"
+                [class.is-invalid]="ValidateTextField('user')">
+                <label for="floatingUser">ID del usuario</label>
+                <div *ngIf="ValidateErrorTextField('user')">
+                    <small class="badge alert-danger" *ngIf="formG.get('user').hasError('required')">
+                        Este es un campo requerido.
+                    </small>
+                </div>
             </div>
-            <input class='form-control mt-3' type="number" formControlName="product" [(ngModel)]="selected.product" placeholder="Ingrese el ID del producto">
-            <div *ngIf="formG.get('product').errors && formG.get('product').touched">
-                <small class="badge alert-danger" *ngIf="formG.get('product').hasError('required')">
-                    Este es un campo requerido.
-                </small>
+            <div class="form-floating mb-3">
+                <input class='form-control mt-3' type="number" formControlName="product" [(ngModel)]="selected.product" id="floatingProduct" placeholder="ID del producto"
+                [class.is-invalid]="ValidateTextField('product')">
+                <label for="floatingProduct">ID del producto</label>
+                <div *ngIf="ValidateErrorTextField('product')">
+                    <small class="badge alert-danger" *ngIf="formG.get('product').hasError('required')">
+                        Este es un campo requerido.
+                    </small>
+                </div>
             </div>
-            <!-- <input class='form-control mt-3' type="datetime-local" formControlName="date" [(ngModel)]="selected.date">
-            <div *ngIf="formG.get('date').errors && formG.get('date').touched">
-                <small class="badge alert-danger" *ngIf="formG.get('date').hasError('required')">
-                    Este es un campo requerido.
-                </small>
-            </div> -->
+                <!-- <input class='form-control mt-3' type="datetime-local" formControlName="date" [(ngModel)]="selected.date">
+                <div *ngIf="formG.get('date').errors && formG.get('date').touched">
+                    <small class="badge alert-danger" *ngIf="formG.get('date').hasError('required')">
+                        Este es un campo requerido.
+                    </small>
+                </div> -->
             <button class="btn btn-success mt-3">
-                {{selected.id == 0 ? 'Agregar' : 'Guardar'}} <i class="fas fa-plus-circle"></i>
+                {{selected.id === 0 ? 'Agregar ' : 'Guardar '}} <i class="fas fa-plus-circle"></i>
             </button>
         </form>
     </div>
 
     <hr>
+
     <!-- TABLA DE COMENTARIOS -->
     <div class="table-responsive">
         <table class="table table-hover">
@@ -64,8 +77,8 @@
                     <td>{{comment.user}}</td>
                     <td>{{comment.product}}</td>
                     <td>{{comment.date}}</td>
-                    <td><button (click)="update(comment)" class="btn btn-primary">Editar <i class="fas fa-pen"></i></button></td>
-                    <td><button (click)="delete(comment)" class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button></td>
+                    <td><button (click)="update(comment)" class="btn btn-primary">Editar <i class="fas fa-pen fa-sm"></i></button></td>
+                    <td><button (click)="delete(comment)" class="btn btn-danger">Eliminar <i class="fa fa-trash fa-sm"></i></button></td>
                 </tr>
             </tbody>
         </table>

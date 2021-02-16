@@ -4,14 +4,14 @@
     <div class="table-responsive">
         <table class="table table-hover">
             <thead class="table-dark">
-                <tr>
+                <tr class="text-center">
                     <th scope="col">ID</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
+                    <!-- <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th> -->
                     <th scope="col">Usuario</th>
                     <th scope="col">Contraseña</th>
                     <th scope="col">Correo</th>
-                    <th scope="col" colspan="2" class="text-center">Acciones</th>
+                    <th scope="col" colspan="2">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,13 +20,13 @@
                 [class.bg-secondary]="user == selected"
                 [class.text-light]="user == selected">
                     <th scope="row">{{user.id}}</th>
-                    <td>{{user.name}}</td>
-                    <td>{{user.lastName}}</td>
+                    <!-- <td>{{user.name}}</td>
+                    <td>{{user.lastName}}</td> -->
                     <td>{{user.username}}</td>
                     <td>{{user.password}}</td>
                     <td>{{user.email}}</td>
-                    <td><button (click)="update(user)" class="btn btn-primary">Editar <i class="fas fa-pen"></i></button></td>
-                    <td><button class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button></td>
+                    <td><button (click)="update(user)" class="btn btn-primary">Editar <i class="fas fa-pen fa-sm"></i></button></td>
+                    <td><button class="btn btn-danger">Eliminar <i class="fa fa-trash fa-sm"></i></button></td>
                 </tr>
             </tbody>
         </table>

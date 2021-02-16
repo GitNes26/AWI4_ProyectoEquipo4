@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   formG:FormGroup
 
-  constructor() {
+  constructor(private formBuilder:FormBuilder) {
     this.buildForm()
    }
 
@@ -20,10 +20,10 @@ export class LoginComponent implements OnInit {
   }
 
   private buildForm() {
-    this.formG = new FormGroup({
-      user: new FormControl('', [Validators.required]),
-      pwd: new FormControl('', [Validators.required,Validators.minLength(3)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+    this.formG = this.formBuilder.group({
+      user: ['', [Validators.required]],
+      pwd: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
     });
 
     // this.formG.valueChanges
@@ -31,6 +31,14 @@ export class LoginComponent implements OnInit {
     // .subscribe(value => {
     //   console.log(value)
     // })
+  }
+
+  ValidateErrorTextField(tf:string){
+    return (this.formG.get(tf).errors && this.formG.get(tf).touched)
+  }
+
+  ValidateTextField(tf:string){
+    return (this.formG.get(tf).invalid && this.formG.get(tf).touched)
   }
 
   save(event: Event) {
