@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { Product } from '../../Models/product';
+import { ProductService } from '../../Services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -16,35 +18,22 @@ export class ProductComponent implements OnInit {
   productsArray:Product[] = [
     {id:1, product:"Pelota de Beisbol", price:90},
     {id:2, product:"Bat de Beibol", price:300},
-    {id:3, product:"Guante de Beisbol", price:240},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
-    {id:4, product:"Balon de Futbol No.5", price:119.99},
   ]
 
-  constructor() {
+  constructor(private formBuilder:FormBuilder, private productService:ProductService, private router:Router) {
     this.buildForm()
+    this.productService.show().subscribe((p:any) => {
+      this.productsArray = p
+    })
    }
 
   ngOnInit(): void {
   }
 
   private buildForm() {
-    this.formG = new FormGroup({
-      product: new FormControl('',[Validators.required]),
-      price: new FormControl('',[Validators.required])
+    this.formG = this.formBuilder.group({
+      product: ['',[Validators.required]],
+      price: ['',[Validators.required]]
     })
   }
 

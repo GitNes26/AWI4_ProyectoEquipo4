@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/login'])
         })
       }, error => {
-        errorMessage('Ha ocurrido un error'+ error)
+        errorMessage('Ha ocurrido un error')
       })
       
     } else { // si no ha sido tocado ningun campo, marcar como tocado para arrojar errores
