@@ -12,6 +12,7 @@ import { CommentComponent } from './Components/comment/comment.component';
 import { PageNoFoundComponent } from './Components/page-no-found/page-no-found.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
+import { MainComponent } from './Components/main/main.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { RegisterComponent } from './Components/register/register.component';
     PageNoFoundComponent,
     LoginComponent,
     RegisterComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,

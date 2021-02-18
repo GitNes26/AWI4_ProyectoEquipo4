@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { Product } from '../../Models/product';
 import { ProductService } from '../../Services/product.service';
+import { timeMessage, successDialog, errorMessage } from '../../Functions/Alerts';
 
 @Component({
   selector: 'app-product',
@@ -15,16 +16,11 @@ export class ProductComponent implements OnInit {
   formG: FormGroup
   formAddProduct = true
 
-  productsArray:Product[] = [
-    {id:1, product:"Pelota de Beisbol", price:90},
-    {id:2, product:"Bat de Beibol", price:300},
-  ]
+  productsArray:Product[] = []
 
-  constructor(private formBuilder:FormBuilder, private productService:ProductService, private router:Router) {
+  constructor(private formBuilder:FormBuilder, private service:ProductService, private router:Router) {
     this.buildForm()
-    this.productService.show().subscribe((p:any) => {
-      this.productsArray = p
-    })
+    this.show()
    }
 
   ngOnInit(): void {
@@ -63,15 +59,32 @@ export class ProductComponent implements OnInit {
         this.selected.id = this.productsArray.length + 1
         this.productsArray.push(this.selected)
         
-        this.selected = new Product() 
+      }else {
+        this.update(this.selected)
       }
+      this.buildForm()
     } else { // si no ha sido tocado ningun campo, marcar como tocado para arrojar errores
       this.formG.markAllAsTouched()
     }
   }
 
+  show(){
+    this.service.show().subscribe((o:any) => {
+      this.productsArray = o
+    })
+  }
+
   update(product:Product){
     this.selected = product
+    if (this.selected.id != 0) {
+      this.service.update(this.selected).subscribe((o:any) => {
+        successDialog('Producto actualizado')
+      }, error => {
+        console.log(error)
+        errorMessage('Producto ya existente')
+      })
+    }
+    this.buildForm()
   }
 
   delete(product:Product){

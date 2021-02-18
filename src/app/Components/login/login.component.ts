@@ -29,12 +29,6 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       pwd: ['', [Validators.required]],
     });
-
-    // this.formG.valueChanges
-    // .pipe(debounceTime(1000))
-    // .subscribe(value => {
-    //   console.log(value)
-    // })
   }
 
   ValidateErrorTextField(tf:string){

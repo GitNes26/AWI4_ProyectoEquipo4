@@ -51,11 +51,12 @@ export function timeMessage(text:string, time) {
     return Swal.fire({
         html: text,
         timer: time,
-        onBeforeOpen: () =>{
+        showConfirmButton: false,
+        willOpen: () =>{
             Swal.showLoading()
             timerInterval = setInterval(() => { }, 100)
         },
-        onClose: () => {
+        willClose: () => {
             clearInterval(timerInterval)
         }
     })
