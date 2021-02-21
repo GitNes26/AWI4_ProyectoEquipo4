@@ -1,7 +1,7 @@
 <div class="row mt-5">
     <div class="col-md-8 col-lg-5 col-11 container card p-5">
         <h1 class="display-1 text-center">LOGIN</h1>
-        <form class="px-5" [formGroup]="formG" (ngSubmit)="save($event)" novalidate>
+        <form class="px-5" [formGroup]="formG" (ngSubmit)="login($event)" novalidate>
             <div class="form-floating mb-3">
                 <input class='form-control mt-3' type="text" formControlName="email" id="floatingEmail" placeholder="Correo"
                 [class.is-invalid]="ValidateTextField('email')">

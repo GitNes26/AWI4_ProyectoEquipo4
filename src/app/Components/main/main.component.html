@@ -1,1 +1,81 @@
-<p>main works!</p>
+<div class="row">
+    <h1 class="display-1 text-center">MENÚ</h1>
+    <hr>
+    <div class="" *ngFor="let product of productsArray">
+        <div class="card text-dark bg-light border-dark mb-3 rounded">
+            <a class="card-header text-decoration-none h1 text-uppercase text-dark" data-bs-toggle="collapse" 
+            href="#collapseProduct{{product.id}}" role="button" aria-expanded="false" aria-controls="collapseProduct">
+                {{product.product}}
+            </a>
+            <div class="card-body" class="collapse" id="collapseProduct{{product.id}}">
+                <div class="card-group mb-1" *ngFor="let comment of commentsArray">
+                    <div class="card">
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <p class="text-capitalize">{{comment.comment}}</p>
+                                <footer class="blockquote-footer"><cite title="Source Title">{{comment.user}}</cite></footer>
+                              </blockquote>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <div class="btn-group btn-group-sm" role="button">
+                                <button (click)="update(comment)" class="btn btn-outline-primary btn-sm"><i class="fas fa-pen fa-sm"></i></button>
+                                <button (click)="delete(comment)" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash fa-sm"></i></button>
+                            </div>
+                            <small class="text-muted">{{comment.created_at}}</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- FORMULARIO PARA AGREGAR UN COMENTARIO -->
+                <!-- <div class="card-footer">
+                    <form class="form-group" [formGroup]="formG" (ngSubmit)="createOrUpdate()" novalidate>
+                        <!- <input type="number" formControlName="product" [(ngModel)]="product.id"> ->
+                        <div class="form-floating mb-1">
+                            <input class='form-control mt-3' type="text" formControlName="comment" id="floatingComment" placeholder="Comentario..."
+                            [class.is-invalid]="ValidateTextField('comment')">
+                            <label for="floatingComment">Comentario...</label>
+                            <div *ngIf="ValidateErrorTextField('comment')">
+                                <small class="badge alert-danger" *ngIf="formG.get('comment').hasError('required')">
+                                    Este es un campo requerido.
+                                </small>
+                            </div>
+                        </div>
+                        <button class="btn btn-success">
+                            {{commentSelected.id === 0 ? 'Agregar ' : 'Guardar '}} <i class="fas fa-plus-circle"></i>
+                        </button>
+                    </form>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FORMULARIO PARA AGREGAR UN COMENTARIO -->
+    <div class="card-footer">
+        <form class="form-group" [formGroup]="formG" (ngSubmit)="createOrUpdate()" novalidate>
+            <div class="form-floating mb-1">
+                <select class='form-select mt-3 w-25' formControlName="product" id="floatingProduct" placeholder="Producto"
+                [class.is-invalid]="ValidateTextField('product')">
+                    <option *ngFor="let product of productsArray" value="{{product.id}}">{{product.product}}</option>
+                </select>
+                <label for="floatingProduct">Producto</label>
+                <div *ngIf="ValidateErrorTextField('product')">
+                    <small class="badge alert-danger" *ngIf="formG.get('product').hasError('required')">
+                        Este es un campo requerido.
+                    </small>
+                </div>
+            </div>
+            <div class="form-floating mb-1">
+                <input class='form-control mt-3' type="text" formControlName="comment" id="floatingComment" placeholder="Comentario..."
+                [class.is-invalid]="ValidateTextField('comment')">
+                <label for="floatingComment">Comentario...</label>
+                <div *ngIf="ValidateErrorTextField('comment')">
+                    <small class="badge alert-danger" *ngIf="formG.get('comment').hasError('required')">
+                        Este es un campo requerido.
+                    </small>
+                </div>
+            </div>
+            <button class="btn btn-success">
+                {{commentSelected.id === 0 ? 'Agregar ' : 'Guardar '}} <i class="fas fa-plus-circle"></i>
+            </button>
+        </form>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Comment } from '../Models/Comment';
 import { Observable } from 'rxjs';
 
@@ -10,22 +10,29 @@ import { Observable } from 'rxjs';
 export class CommentService {
 
   apiURL = environment.apiURL
+  header = new HttpHeaders({'Type-content':'aplication/json', 'Authorization':'Bearer '+localStorage.getItem('myToken')})
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {
+    this.header.append('Authorization', 'Bearer '+ localStorage.getItem('myToken'))
+   }
 
   add(comment:Comment): Observable<any>{
-    return this.http.post(`${this.apiURL}api/comments`, comment)
+    return this.http.post(`${this.apiURL}api/comments`, comment, {headers: this.header})
   }
 
   update(comment:Comment): Observable<any>{
-    return this.http.put(`${this.apiURL}api/comments`, comment)
+    return this.http.put(`${this.apiURL}api/comments/`+comment.id, comment, {headers: this.header})
   }
 
   delete(id:number|string): Observable<any>{
-    return this.http.delete(`${this.apiURL}api/comments/` + id)
+    return this.http.delete(`${this.apiURL}api/comments/` + id, {headers: this.header})
   }
 
-  show(id:number|string): Observable<any>{
-    return this.http.get(`${this.apiURL}api/comments` + id)
+  show() {
+    return this.http.get(`${this.apiURL}api/comments`, {headers: this.header})
+  }
+
+  showCommentsByProduct(id:number|string): Observable<any> {
+    return this.http.get(`${this.apiURL}api/comments/`+ id, {headers: this.header})
   }
 }

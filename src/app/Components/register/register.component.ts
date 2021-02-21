@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  save(event: Event) {
+  register(event: Event) {
     event.preventDefault()
     if (this.formG.valid){ // verifica las validaciones de los campos
       // const data = this.formG.value; // console.log(data);
@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
 
   setData() {
     this.user = {
-      // id: 1,
+      id: 0,
       username: this.formG.get('username').value,
       password: this.formG.get('pwd').value,
       email: this.formG.get('email').value

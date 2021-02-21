@@ -1,9 +1,9 @@
 export class Comment {
-    id:      Number = 0
-    comment: String
-    user:    Number
-    product: Number
-    date:    String
+    id:      number = 0
+    comment: string
+    user:    number
+    product: number
+    date:    string
 
     // public setComment(comment:Comment){
     //     this.comment = comment.comment

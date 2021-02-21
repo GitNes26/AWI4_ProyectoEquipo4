@@ -1,10 +1,10 @@
 export class User {
-    // id:       Number = 0
+    id:       number = 0
     // name:     String
     // lastName: String
-    username: String
-    password: String
-    email:    String
+    username: string
+    password: string
+    email:    string
 
     // public setUser(user:User){
     //     this.name = user.name

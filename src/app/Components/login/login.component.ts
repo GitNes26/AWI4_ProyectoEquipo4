@@ -15,10 +15,16 @@ export class LoginComponent implements OnInit {
 
   formG:FormGroup
   user:User
+  // public token:string
 
   constructor(private formBuilder:FormBuilder, private authService:AuthService, private router:Router) {
     this.buildForm()
-   }
+    if (localStorage.getItem('myToken') != 'null'){
+      console.log('sesion iniciada | Login')
+      console.log(localStorage)
+      // this.router.navigate(['/main']);
+    }
+  }
 
   ngOnInit(): void {
   }
@@ -39,14 +45,16 @@ export class LoginComponent implements OnInit {
     return (this.formG.get(tf).invalid && this.formG.get(tf).touched)
   }
 
-  save(event: Event) {
-    event.preventDefault(); console.log('si entra')
+  login(event: Event) {
+    event.preventDefault(); console.log('si entra a save')
     if (this.formG.valid){ // verifica las validaciones de los campos
       // const value = this.formG.value;  console.log(value);
       this.setData()
       this.authService.login(this.user).subscribe((data:any) => {
         timeMessage('Iniciando...', 1500).then(() => {
           successDialog('Bienvenido').then(() => {
+            localStorage.setItem("myToken",data.token)
+            console.log('dentro del metodo login de login', localStorage)
             this.router.navigate(['/comments'])
           })
         })
@@ -61,7 +69,7 @@ export class LoginComponent implements OnInit {
 
   setData() {
     this.user = {
-      // id: 1,
+      id: 0,
       username: '',
       email: this.formG.get('email').value,
       password: this.formG.get('pwd').value,

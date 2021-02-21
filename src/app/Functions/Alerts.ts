@@ -21,6 +21,28 @@ export function warningMessage(msg:string) {
     })
 }
 
+export function deleteMessage(productName:string|any) {
+    return Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        text: "Estas seguro que deseas eliminar el producto: "+productName+"?",
+        showConfirmButton: true,
+        confirmButtonText: 'Eliminar',
+        confirmButtonColor: '#d33',
+        showCancelButton: true
+        
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'Producto Eliminado',
+                productName,
+                "success"
+            )
+            // Swal.getConfirmButton()
+        }
+    })
+}
+
 export function errorMessage(msg:string) {
     return Swal.fire({
         position: 'center',

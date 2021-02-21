@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { Product } from '../../Models/product';
 import { ProductService } from '../../Services/product.service';
-import { timeMessage, successDialog, errorMessage } from '../../Functions/Alerts';
+import { timeMessage, successDialog, errorMessage, warningMessage, deleteMessage } from '../../Functions/Alerts';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product',
@@ -53,16 +54,26 @@ export class ProductComponent implements OnInit {
 
   selected: Product = new Product()
 
-  create(){
+  createOrUpdate(){
     if (this.formG.valid){ // verifica las validaciones de los campos
-      if (this.selected.id == 0) {
-        this.selected.id = this.productsArray.length + 1
-        this.productsArray.push(this.selected)
-        
-      }else {
-        this.update(this.selected)
+      if (this.selected.id == 0) { // agregar producto Nuevo
+        this.service.add(this.selected).subscribe(() => {
+          timeMessage('Registrando Producto...',500).then(() => {
+            successDialog('Producto registrado')
+            this.show()
+          })
+        })        
+      }else { // editar producto seleccionado
+        this.service.update(this.selected).subscribe((o:any) => {
+          successDialog('Producto actualizado')
+        }, error => {
+          console.log(error)
+          errorMessage('Producto ya existente')
+        })
+        errorMessage('Producto ya existente')
       }
       this.buildForm()
+      this.selected = new Product()
     } else { // si no ha sido tocado ningun campo, marcar como tocado para arrojar errores
       this.formG.markAllAsTouched()
     }
@@ -76,18 +87,21 @@ export class ProductComponent implements OnInit {
 
   update(product:Product){
     this.selected = product
-    if (this.selected.id != 0) {
-      this.service.update(this.selected).subscribe((o:any) => {
-        successDialog('Producto actualizado')
-      }, error => {
-        console.log(error)
-        errorMessage('Producto ya existente')
-      })
-    }
-    this.buildForm()
   }
 
   delete(product:Product){
+    successDialog('El producto "'+product.product+'" ha sido eliminado').then(() => {
+      this.service.delete(product.id).subscribe(() => {
+        this.show()
+      })
+    })
+    // deleteMessage(product.product).then(() => {
+    //   if (Swal.clickConfirm){
+    //     this.service.delete(product.id).subscribe(() => {
+    //       this.show()
+    //     })
+    //   }
+    // })
   }
 
 }

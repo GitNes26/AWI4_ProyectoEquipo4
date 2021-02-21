@@ -5,6 +5,10 @@ import { Comment } from "../../Models/comment";
 import { User } from "../../Models/user";
 import { Product } from '../../Models/product';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
+import { timeMessage, successDialog, errorMessage, warningMessage, deleteMessage } from '../../Functions/Alerts';
+import { CommentService } from '../../Services/comment.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-comment',
@@ -16,14 +20,11 @@ export class CommentComponent implements OnInit {
   formG: FormGroup
   formAddComment = true
 
-  commentsArray:Comment[] = [
-    {id:1, comment:"Este es un comentario parte 1", user:1, product:1, date:Date()},
-    {id:2, comment:"Este es un comentario parte 2", user:2, product:4, date:Date()},
-    {id:3, comment:"Este es un comentario parte 3", user:2, product:5, date:Date()},
-  ]
+  commentsArray:Comment[] = []
 
-  constructor(private formBuilder:FormBuilder) {
+  constructor(private formBuilder:FormBuilder, private service:CommentService, private router:Router) {
     this.buildForm()
+    this.show()
    }
 
   ngOnInit(): void {
@@ -58,28 +59,55 @@ export class CommentComponent implements OnInit {
 
   selected: Comment = new Comment()
 
-  create(){
+  createOrUpdate(){
     if (this.formG.valid){ // verifica las validaciones de los campos
-      console.log('que entro?')
-
-      if (this.selected.id == 0) {
-        this.selected.id = this.commentsArray.length + 1
-        this.selected.date = Date()
-        this.commentsArray.push(this.selected)
-        console.log('ya')
-        this.selected = new Comment() 
+      if (this.selected.id == 0) { // agregar commento Nuevo
+        this.service.add(this.selected).subscribe(() => {
+          timeMessage('Registrando Commento...',500).then(() => {
+            successDialog('Commento registrado')
+            // this.router.navigate(['comments'])
+          })
+        })
+        this.show()
+        
+      }else { // editar comment seleccionado
+        this.service.update(this.selected).subscribe((o:any) => {
+          successDialog('Commento actualizado')
+        }, error => {
+          console.log(error)
+          errorMessage('Commento ya existente')
+        })
       }
+      this.buildForm()
+      this.selected = new Comment()
     } else { // si no ha sido tocado ningun campo, marcar como tocado para arrojar errores
       this.formG.markAllAsTouched()
     }
   }
 
+  show(){
+    this.service.show().subscribe((o:any) => {
+      this.commentsArray = o
+    })
+  }
+
   update(comment:Comment){
     this.selected = comment
-
   }
 
   delete(comment:Comment){
+    successDialog('Comentario Eliminado').then(() => {
+      this.service.delete(comment.id).subscribe(() => {
+        this.show()
+      })
+    })
+    // deleteMessage(comment.comment).then(() => {
+    //   if (Swal.clickConfirm){
+    //     this.service.delete(comment.id).subscribe(() => {
+    //       this.show()
+    //     })
+    //   }
+    // })
   }
 
 }

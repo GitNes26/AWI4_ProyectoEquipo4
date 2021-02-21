@@ -7,7 +7,7 @@
             <!-- FORMULARIO PARA AGREGAR UN PRODUCTO -->
             <div class="card" *ngIf="formAddProduct">
                 <h5 class="card-header">Registrar Producto</h5>
-                <form class="card-body" [formGroup]="formG" (ngSubmit)="create()" novalidate>
+                <form class="card-body" [formGroup]="formG" (ngSubmit)="createOrUpdate()" novalidate>
                     <div class="form-floating mb-3">
                         <input class='form-control mt-3' type="text" formControlName="product" [(ngModel)]="selected.product" id="floatingProduct" placeholder="Nombre del Producto"
                         [class.is-invalid]="ValidateTextField('product')">

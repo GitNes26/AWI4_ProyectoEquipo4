@@ -1,7 +1,7 @@
 export class Product {
-    id:      Number = 0
-    product: String
-    price:   Number
+    id:      number = 0
+    product: string
+    price:   number
 
     // public setProduct(product:Product){
     //     this.product = product.product

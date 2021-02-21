@@ -11,9 +11,9 @@ import { User } from '../../Models/user';
 export class UserComponent implements OnInit {
 
   usersArray: User[] = [
-    {/*id:1, name:"Admin", lastName:"Administrador",*/ username:"admin", password:"123", email:"admin@gmail.com"},
-    {/*id:2, name:"Nestor", lastName:"Puentes",*/ username:"npuentes", password:"123", email:"npuentes@gmail.com"},
-    {/*id:3, name:"Usuario 3", lastName:"Nuevo",*/ username:"usuario", password:"123", email:"usuario@gmail.com"},
+    // {/*id:1, name:"Admin", lastName:"Administrador",*/ username:"admin", password:"123", email:"admin@gmail.com"},
+    // {/*id:2, name:"Nestor", lastName:"Puentes",*/ username:"npuentes", password:"123", email:"npuentes@gmail.com"},
+    // {/*id:3, name:"Usuario 3", lastName:"Nuevo",*/ username:"usuario", password:"123", email:"usuario@gmail.com"},
   ]
 
   constructor() { }
