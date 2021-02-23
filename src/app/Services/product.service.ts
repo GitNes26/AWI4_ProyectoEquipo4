@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class ProductService {
 
   apiURL = environment.apiURL
-  header = new HttpHeaders({'Type-content':'aplication/json', 'Authorization':'Bearer'+localStorage.getItem('myToken')})
+  header = new HttpHeaders({'Type-content': 'aplication/json', 'Authorization': 'Bearer '+localStorage.getItem('myToken')})
 
   constructor(private http:HttpClient) {
     console.log('Servicio producto')

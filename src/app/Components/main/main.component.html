@@ -1,18 +1,18 @@
 <div class="row">
     <h1 class="display-1 text-center">MENÚ</h1>
     <hr>
-    <div class="" *ngFor="let product of productsArray">
+    <div class="" *ngFor="let myProduct of productsArray">
         <div class="card text-dark bg-light border-dark mb-3 rounded">
             <a class="card-header text-decoration-none h1 text-uppercase text-dark" data-bs-toggle="collapse" 
-            href="#collapseProduct{{product.id}}" role="button" aria-expanded="false" aria-controls="collapseProduct">
-                {{product.product}}
+            href="#collapseProduct{{myProduct.id}}" role="button" aria-expanded="false" aria-controls="collapseProduct">
+                {{myProduct.product}}
             </a>
-            <div class="card-body" class="collapse" id="collapseProduct{{product.id}}">
+            <div class="card-body" class="collapse" id="collapseProduct{{myProduct.id}}">
                 <div class="card-group mb-1" *ngFor="let comment of commentsArray">
                     <div class="card">
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
-                                <p class="text-capitalize">{{comment.comment}}</p>
+                                <p class="lead">{{comment.comment}}</p>
                                 <footer class="blockquote-footer"><cite title="Source Title">{{comment.user}}</cite></footer>
                               </blockquote>
                         </div>
@@ -26,13 +26,13 @@
                     </div>
                 </div>
                 <!-- FORMULARIO PARA AGREGAR UN COMENTARIO -->
-                <!-- <div class="card-footer">
+                <div class="card-footer">
                     <form class="form-group" [formGroup]="formG" (ngSubmit)="createOrUpdate()" novalidate>
-                        <!- <input type="number" formControlName="product" [(ngModel)]="product.id"> ->
+                        <!-- <input type="hidden" formControlName="product"> -->
                         <div class="form-floating mb-1">
-                            <input class='form-control mt-3' type="text" formControlName="comment" id="floatingComment" placeholder="Comentario..."
+                            <input class='form-control mt-3' type="text" formControlName="comment" id="floatingComment{{myProduct.id}}" placeholder="Comentario..."
                             [class.is-invalid]="ValidateTextField('comment')">
-                            <label for="floatingComment">Comentario...</label>
+                            <label for="floatingComment{{myProduct.id}}">Comentario...</label>
                             <div *ngIf="ValidateErrorTextField('comment')">
                                 <small class="badge alert-danger" *ngIf="formG.get('comment').hasError('required')">
                                     Este es un campo requerido.
@@ -43,13 +43,13 @@
                             {{commentSelected.id === 0 ? 'Agregar ' : 'Guardar '}} <i class="fas fa-plus-circle"></i>
                         </button>
                     </form>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
 
     <!-- FORMULARIO PARA AGREGAR UN COMENTARIO -->
-    <div class="card-footer">
+    <!-- <div class="card-footer">
         <form class="form-group" [formGroup]="formG" (ngSubmit)="createOrUpdate()" novalidate>
             <div class="form-floating mb-1">
                 <select class='form-select mt-3 w-25' formControlName="product" id="floatingProduct" placeholder="Producto"
@@ -77,5 +77,5 @@
                 {{commentSelected.id === 0 ? 'Agregar ' : 'Guardar '}} <i class="fas fa-plus-circle"></i>
             </button>
         </form>
-    </div>
+    </div> -->
 </div>

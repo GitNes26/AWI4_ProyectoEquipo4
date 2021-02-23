@@ -10,17 +10,18 @@ import { timeMessage } from '../../Functions/Alerts';
 })
 export class MenuComponent implements OnInit {
 
-  sesionInit = false
+  sessionInit = false
 
   constructor(private authService:AuthService, private router:Router) {
-    if (localStorage.getItem('myToken') != 'null') {
-      console.log('sesion iniciada | Menu')
-      console.log(this.sesionInit)
-      this.sesionInit = true
+    if (localStorage.getItem('myToken') != "null") {
+      console.log('sesion iniciada | Menu | '+localStorage)
+      console.log(this.sessionInit)
+      this.sessionInit = true
+      console.log('sesion iniciada | Menu | sesion'+ this.sessionInit)
     }else {
-      this.sesionInit = false
+      this.sessionInit = false
     }
-    console.log(this.sesionInit)
+    console.log('if: '+this.sessionInit)
    }
 
   ngOnInit(): void {
@@ -28,9 +29,9 @@ export class MenuComponent implements OnInit {
 
   logout(){
     timeMessage('Cerrando Sesion...',1500).then(() => {
-      localStorage.setItem('myToken',"null")
-      this.sesionInit = false
-      console.log('en metodo logout', this.sesionInit, localStorage)
+      localStorage.clear()
+      this.sessionInit = false
+      console.log('en metodo logout', this.sessionInit, localStorage)
       this.router.navigate(['/login'])
     })
   }

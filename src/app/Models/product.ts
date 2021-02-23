@@ -2,6 +2,7 @@ export class Product {
     id:      number = 0
     product: string
     price:   number
+    user:    number
 
     // public setProduct(product:Product){
     //     this.product = product.product

@@ -22,13 +22,13 @@
           <a class="nav-link" routerLink='/comments' routerLinkActive='active'>
           Comentarios</a>
       </ul>
-      <div class="d-flex" *ngIf="!sesionInit">
+      <div class="d-flex" *ngIf="!sessionInit">
         <button class="btn btn-outline-success" aria-current="page" routerLink='/login' routerLinkActive='active'>
         Login</button>
         <button class="btn btn-outline-light mx-1" routerLink='/register' routerLinkActive='active'>
         Registro</button>
       </div>
-      <div class="d-flex" *ngIf="sesionInit">
+      <div class="d-flex" *ngIf="sessionInit">
         <button class="btn btn-outline-danger" aria-current="page" (click)='logout()'>
         Logout</button>
       </div>

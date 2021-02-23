@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import { Comment } from "../../Models/comment";
+import { Comment } from '../../Models/comment';
 import { User } from "../../Models/user";
 import { Product } from '../../Models/product';
 import { timeMessage, successDialog, errorMessage, warningMessage, deleteMessage } from '../../Functions/Alerts';
 import { CommentService } from '../../Services/comment.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../Services/product.service';
 import { AuthService } from '../../Services/auth.service';
 
@@ -23,7 +23,7 @@ export class MainComponent implements OnInit {
   usersArray:User[] = []
 
   constructor(private formBuilder:FormBuilder, private commentService:CommentService, private productService:ProductService,
-    private userService:AuthService, private router:Router) {
+    private userService:AuthService, private activatedRoute:ActivatedRoute) {
     this.buildForm()
     // this.showComments(this.productSelected)
     this.show()
@@ -35,7 +35,7 @@ export class MainComponent implements OnInit {
   private buildForm() {
     this.formG = this.formBuilder.group({
       comment: ['',[Validators.required, Validators.maxLength(100)]],
-      product: ['',[Validators.required]],
+      // product: ['',[Validators.required]],
       // user: ['',[Validators.required]],
     })
   }
@@ -56,7 +56,8 @@ export class MainComponent implements OnInit {
     if (this.formG.valid){ // verifica las validaciones de los campos
       if (this.commentSelected.id == 0) { // agregar commento Nuevo
         this.commentSelected.user = 3
-        // this.commentSelected.product = 1
+        this.commentSelected.product = 1 //this.formG.get('product').value //this.productSelected.id
+        this.commentSelected.comment = this.formG.get('comment').value
         this.commentService.add(this.commentSelected).subscribe(() => {
           timeMessage('Registrando Commento...',500).then(() => {
             successDialog('Commento registrado')
@@ -81,11 +82,12 @@ export class MainComponent implements OnInit {
   }
 
   // COMENTARIOS
-  // showComments(product:Product){
-  //   this.commentService.showCommentsByProduct(product.id).subscribe((o:any) => {
-  //     this.commentsArray = o
-  //   })
-  // }
+  showCommentsByProduct(id){
+    this.commentService.showCommentsByProduct(id).subscribe((o:any) => {
+      this.commentsArray = o
+      console.log('soy el commentArray :'+id)
+    })
+  }
 
   showCo(){
     this.commentService.show().subscribe((o:any) => {
@@ -100,7 +102,7 @@ export class MainComponent implements OnInit {
   delete(comment:Comment){
     successDialog('Comentario Eliminado').then(() => {
       this.commentService.delete(comment.id).subscribe(() => {
-        this.show()
+        this.showCo()
       })
     })
     // deleteMessage(comment.comment).then(() => {
@@ -130,6 +132,7 @@ export class MainComponent implements OnInit {
   show(){
     this.showProducts()
     this.showCo()
+    this.showCommentsByProduct(1)
     // this.showComments()
     // this.showUsers()
   }

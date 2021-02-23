@@ -5,6 +5,7 @@ import { User } from '../../Models/user';
 import { AuthService } from '../../Services/auth.service';
 import { errorMessage, timeMessage, successDialog } from '../../Functions/Alerts';
 import { Router } from '@angular/router';
+import { User } from '../../../../../Login-Angular/src/app/models/user';
 
 @Component({
   selector: 'app-login',
@@ -54,8 +55,10 @@ export class LoginComponent implements OnInit {
         timeMessage('Iniciando...', 1500).then(() => {
           successDialog('Bienvenido').then(() => {
             localStorage.setItem("myToken",data.token)
+            // localStorage.setItem("username",this.user.username)
+            // localStorage.setItem("email",this.user.email)
             console.log('dentro del metodo login de login', localStorage)
-            this.router.navigate(['/comments'])
+            this.router.navigate(['/main'])
           })
         })
       }, error => {

@@ -6,6 +6,7 @@ import { Product } from '../../Models/product';
 import { ProductService } from '../../Services/product.service';
 import { timeMessage, successDialog, errorMessage, warningMessage, deleteMessage } from '../../Functions/Alerts';
 import Swal from 'sweetalert2';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-product',
@@ -30,7 +31,7 @@ export class ProductComponent implements OnInit {
   private buildForm() {
     this.formG = this.formBuilder.group({
       product: ['',[Validators.required]],
-      price: ['',[Validators.required]]
+      price: ['',[Validators.required]],
     })
   }
 
@@ -55,8 +56,10 @@ export class ProductComponent implements OnInit {
   selected: Product = new Product()
 
   createOrUpdate(){
+    console.log(localStorage)
     if (this.formG.valid){ // verifica las validaciones de los campos
       if (this.selected.id == 0) { // agregar producto Nuevo
+        // this.selected.user = 1
         this.service.add(this.selected).subscribe(() => {
           timeMessage('Registrando Producto...',500).then(() => {
             successDialog('Producto registrado')
